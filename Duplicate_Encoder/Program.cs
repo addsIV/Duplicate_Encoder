@@ -141,7 +141,7 @@ namespace Duplicate_Encoder
         public string ZigZagConvert(string s, int numRows)//6. ZigZag Conversion
         {
             //處理邊界條件
-            if (s.Length == 0 || s == null) return "";
+            if (s == null || s.Length == 0) return "";
             if (numRows == 1 || s.Length == 1 || numRows >= s.Length) return s;
 
             //遍歷s，同時遍歷numRows，當numsRow碰到邊界後反方向走
@@ -167,6 +167,9 @@ namespace Duplicate_Encoder
         }
         public string AddStrings(string num1, string num2)
         {
+            if (num1 == null && num2 == null) return null;
+            if (num1 == null) return num2;
+            if (num2 == null) return num1;
             string[] returnString = new string[Math.Max(num1.Length, num2.Length) + 1];
             int round = 0;
             int index = 1;
