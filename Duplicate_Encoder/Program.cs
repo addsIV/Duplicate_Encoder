@@ -98,7 +98,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
 
-            Console.WriteLine(instanceA.LengthOfLongestSubstring("dvdf"));
+            Console.WriteLine(instanceA.ZigZagConvert("PAYPALISHIRING", 3));
             //foreach (int i in temp)
             //{
             //}
@@ -138,6 +138,56 @@ namespace Duplicate_Encoder
 
     public class Solution
     {
+        public string ZigZagConvert(string s, int numRows)//6. ZigZag Conversion
+        {
+            //處理邊界條件
+            if (s.Length == 0 || s == null) return "";
+            if (numRows == 1 || s.Length == 1 || numRows >= s.Length) return s;
+
+            //遍歷s，同時遍歷numRows，當numsRow碰到邊界後反方向走
+            bool isDownward = true;//true向下走 false向上走
+            string[] output = new string[numRows];
+            int rowCount = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                output[rowCount] += s[i];
+                if (isDownward)
+                {
+                    rowCount++;
+                    if (rowCount >= numRows - 1) isDownward = false;
+                }
+                else
+                {
+                    rowCount--;
+                    if (rowCount <= 0) isDownward = true;
+                }
+            }
+
+            return String.Join("", output);
+        }
+        public string AddStrings(string num1, string num2)
+        {
+            string[] returnString = new string[Math.Max(num1.Length, num2.Length) + 1];
+            int round = 0;
+            int index = 1;
+
+            while (returnString.Length - index >= 0)
+            {
+                if (index == returnString.Length && round == 0) returnString[returnString.Length - index] = null;
+                else
+                {
+                    int temp_num1 = num1.Length - index >= 0 ? num1[num1.Length - index] - '0' : 0;
+                    int temp_num2 = num2.Length - index >= 0 ? num2[num2.Length - index] - '0' : 0;
+                    int temp_sum = round + temp_num1 + temp_num2;
+                    round = temp_sum / 10;
+                    returnString[returnString.Length - index] = (temp_sum % 10).ToString();
+                }
+
+                index++;
+            }
+
+            return String.Join("", returnString.Where(p => p != null).ToArray());
+        }
         public int LengthOfLongestSubstring(string s)
         {
             if (s == null || s == string.Empty) return 0;
