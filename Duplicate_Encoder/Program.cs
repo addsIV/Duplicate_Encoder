@@ -98,7 +98,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
 
-            Console.WriteLine(instanceA.ZigZagConvert("PAYPALISHIRING", 3));
+            Console.WriteLine(instanceA.MinFlipsMonoIncr("001101000"));
             //foreach (int i in temp)
             //{
             //}
@@ -138,6 +138,52 @@ namespace Duplicate_Encoder
 
     public class Solution
     {
+        public string AddBinary(string num1, string num2)
+        {
+            if (num1 == null && num2 == null) return null;
+            if (num1 == null) return num2;
+            if (num2 == null) return num1;
+            string[] returnString = new string[Math.Max(num1.Length, num2.Length) + 1];
+            int round = 0;
+            int index = 1;
+
+            while (returnString.Length - index >= 0)
+            {
+                if (index == returnString.Length && round == 0) returnString[returnString.Length - index] = null;
+                else
+                {
+                    int temp_num1 = num1.Length - index >= 0 ? num1[num1.Length - index] - '0' : 0;
+                    int temp_num2 = num2.Length - index >= 0 ? num2[num2.Length - index] - '0' : 0;
+                    int temp_sum = round + temp_num1 + temp_num2;
+                    round = temp_sum / 2;
+                    returnString[returnString.Length - index] = (temp_sum % 2).ToString();
+                }
+
+                index++;
+            }
+
+            return String.Join("", returnString.Where(p => p != null).ToArray());
+        }
+
+        public int MinFlipsMonoIncr(string s)//926. Flip String to Monotone Increasing
+        {
+            int currentMin = 0, ONEcount = 0, n = s.Length;
+
+            for (int i = 0; i < n; i++)
+            {
+                //先判斷當下的字元是不是0，若是則在最小翻轉數+1，然後跟1的計數器去較小的回存到最小翻轉數，
+                //如果字串持續沒出現1則1的計數器維持0，最小翻轉數也永遠是0
+                //如果1的計數器已經>1，代表前面出現過1，當又出現0時，就要判斷是出線的0少還是出現的1少，較少的是最小的翻轉數
+                //ref: https://www.cnblogs.com/grandyang/p/11964938.html
+                if (s[i] == '0') ++currentMin;
+                else ++ONEcount;
+
+                currentMin = Math.Min(currentMin, ONEcount);
+            }
+
+            return currentMin;
+        }
+
         public string ZigZagConvert(string s, int numRows)//6. ZigZag Conversion
         {
             //處理邊界條件
