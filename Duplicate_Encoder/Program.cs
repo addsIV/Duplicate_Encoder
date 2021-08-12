@@ -64,7 +64,8 @@ namespace Duplicate_Encoder
             //    Console.Write(item + " ");
             //}
 
-            Solution instanceA = new Solution();
+            LeetCode_Solution instanceA = new LeetCode_Solution();
+            HISKIO_Solution instanceB = new HISKIO_Solution();
             //bool outputA = instanceA.IsPalindrome(1221);
             int[] testCase = new int[] { 1, 2, 3 };
             TreeNode bst1 = new TreeNode(5);
@@ -98,7 +99,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
 
-            Console.WriteLine(instanceA.MySqrt(2147395600));
+            Console.WriteLine(instanceB.Alogroithm_unit7_frequencyTest("aa2v", "2bav"));
             //foreach (int i in temp)
             //{
             //}
@@ -136,7 +137,34 @@ namespace Duplicate_Encoder
         }
     }
 
-    public class Solution
+    public class HISKIO_Solution
+    {
+        public bool Alogroithm_unit7_frequencyTest(string a, string b)
+        {
+            if (a.Length != b.Length) return false;
+            var dict = new Dictionary<char, int>();
+
+            foreach (char i in a)
+            {
+                if (dict.ContainsKey(i)) ++dict[i];
+                else dict.Add(i, 1);
+            }
+
+            foreach (char i in b)
+            {
+                if (dict.ContainsKey(i) && dict[i] > 0) --dict[i];
+                else return false;
+            }
+
+            foreach (var i in dict.Keys)
+            {
+                if (dict[i] > 0) return false;
+            }
+
+            return true;
+        }
+    }
+    public class LeetCode_Solution
     {
         public int MySqrt(int x)//69. Sqrt(x)
         {
