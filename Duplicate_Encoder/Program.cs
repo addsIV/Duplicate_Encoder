@@ -138,7 +138,11 @@ namespace Duplicate_Encoder
 
     public class Solution
     {
-        public string AddBinary(string num1, string num2)
+        public bool CanReorderDoubled(int[] arr)
+        {
+            return true;
+        }
+        public string AddBinary(string num1, string num2)//67. Add Binary
         {
             if (num1 == null && num2 == null) return null;
             if (num1 == null) return num2;
