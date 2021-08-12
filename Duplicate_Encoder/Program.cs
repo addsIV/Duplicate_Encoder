@@ -98,7 +98,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
 
-            Console.WriteLine(instanceA.MinFlipsMonoIncr("001101000"));
+            Console.WriteLine(instanceA.MySqrt(2147395600));
             //foreach (int i in temp)
             //{
             //}
@@ -138,8 +138,69 @@ namespace Duplicate_Encoder
 
     public class Solution
     {
-        public bool CanReorderDoubled(int[] arr)
+        public int MySqrt(int x)//69. Sqrt(x)
         {
+            if (x == 0) return 0;
+            if (x == 1) return 1;
+            long currentClosest = 0;
+            long left = 0;
+            long right = x / 2 + 1;
+
+            while (left < right)
+            {
+                long mid = left + (right - left) / 2;//取中點，此作法是為了避免過大溢位
+                currentClosest = mid * mid;
+                if (currentClosest == x) return (int)mid;
+                else if (currentClosest > x) right = mid;
+                else left = ++mid;
+            }
+
+            return (int)left - 1;
+        }
+
+        public bool CanReorderDoubled(int[] arr)//954 Array of Doubled Pairs
+        {
+            //處理邊界條件
+            if (arr.Length <= 1) return false;
+
+            //排序整理並分堆存入dictionary(or hash map)
+            Array.Sort(arr);
+            var dict = new Dictionary<int, int>();
+
+            //dict的key和value分別是arr的值與出現次數
+            foreach (var i in arr)
+            {
+                if (dict.ContainsKey(i)) ++dict[i];
+                else dict.Add(i, 1);
+            }
+
+            //遍歷arr並找兩倍與一半的值是否有出現在dict，有的話，target與target_helf抵銷，一起移出dict，double同理。
+            foreach (var i in arr)
+            {
+                int target = i;
+                int target_helf = i / 2;
+                int target_double = i * 2;
+
+                if (dict[i] == 0) continue;
+
+                if (target % 2 == 0 && dict.ContainsKey(target_helf) && dict[target_helf] > 0)
+                {
+                    --dict[target_helf];
+                    --dict[target];
+                }
+                else if (dict.ContainsKey(target_double) && dict[target_double] > 0)
+                {
+                    --dict[target_double];
+                    --dict[target];
+                }
+                else return false;
+            }
+
+            foreach (var i in dict.Keys)
+            {
+                if (dict[i] != 0) return false;
+            }
+
             return true;
         }
         public string AddBinary(string num1, string num2)//67. Add Binary
