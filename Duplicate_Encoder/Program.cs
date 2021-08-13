@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-
 namespace Duplicate_Encoder
 {
-
-    class main
+    internal class main
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //int[][] array =
             //{
@@ -99,7 +97,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
 
-            Console.WriteLine(instanceB.Alogroithm_unit7_frequencyTest("aa2v", "2bav"));
+            Console.WriteLine(instanceA.GroupAnagrams(new string[] { "eat", "tea", "tan", "ate", "nat", "bat" }));
             //foreach (int i in temp)
             //{
             //}
@@ -110,7 +108,6 @@ namespace Duplicate_Encoder
             //Console.Read();
             //for (int n = 0; n < expected.Length; n++)
             //{
-
             //IWorkbook wb = new HSSFWorkbook();
             //ISheet ws = wb.CreateSheet("class");
 
@@ -119,17 +116,24 @@ namespace Duplicate_Encoder
             //}
         }
     }
+
     public class TreeNode
     {
         public int val;
         public TreeNode left;
         public TreeNode right;
-        public TreeNode(int x) { val = x; }
+
+        public TreeNode(int x)
+        {
+            val = x;
+        }
     }
+
     public class ListNode
     {
         public int val;
         public ListNode next;
+
         public ListNode(int val = 0, ListNode next = null)
         {
             this.val = val;
@@ -164,8 +168,61 @@ namespace Duplicate_Encoder
             return true;
         }
     }
+
     public class LeetCode_Solution
     {
+        public bool IsAnagram(string a, string b)//242. Valid Anagram
+        {
+            if (a.Length != b.Length) return false;
+            var dict = new Dictionary<char, int>();
+
+            foreach (char i in a)
+            {
+                if (dict.ContainsKey(i)) ++dict[i];
+                else dict.Add(i, 1);
+            }
+
+            foreach (char i in b)
+            {
+                if (dict.ContainsKey(i)) --dict[i];
+                else return false;
+            }
+
+            foreach (var i in dict.Keys)
+            {
+                if (dict[i] != 0) return false;
+            }
+
+            return true;
+        }
+
+        public IList<IList<string>> GroupAnagrams(string[] strs)//49. Group Anagrams
+        {
+            var returnList = new List<IList<string>>();
+
+            if (strs.Length < 1 || strs == null) return returnList;
+
+            var dict = new Dictionary<string, List<string>>();
+
+            foreach (string member in strs)
+            {
+                char[] temp = member.ToCharArray();
+                Array.Sort(temp);
+                string member_sorted = new string(temp);//new string(char[] a)將字元串列轉為字串
+
+                //查找dict是否有已排序過的member，若無則新增，有就將member加入list
+                if (!dict.ContainsKey(member_sorted)) dict.Add(member_sorted, new List<string>());
+
+                dict[member_sorted].Add(member);
+            }
+
+            foreach (var key in dict.Keys)
+            {
+                returnList.Add(dict[key]);
+            }
+            return returnList;
+        }
+
         public int MySqrt(int x)//69. Sqrt(x)
         {
             if (x == 0) return 0;
@@ -231,6 +288,7 @@ namespace Duplicate_Encoder
 
             return true;
         }
+
         public string AddBinary(string num1, string num2)//67. Add Binary
         {
             if (num1 == null && num2 == null) return null;
@@ -304,6 +362,7 @@ namespace Duplicate_Encoder
 
             return String.Join("", output);
         }
+
         public string AddStrings(string num1, string num2)
         {
             if (num1 == null && num2 == null) return null;
@@ -330,6 +389,7 @@ namespace Duplicate_Encoder
 
             return String.Join("", returnString.Where(p => p != null).ToArray());
         }
+
         public int LengthOfLongestSubstring(string s)
         {
             if (s == null || s == string.Empty) return 0;
@@ -358,6 +418,7 @@ namespace Duplicate_Encoder
 
             return currentMax;
         }
+
         public ListNode MergeTwoLists(ListNode l1, ListNode l2)
         {
             //處理邊界條件
@@ -398,12 +459,14 @@ namespace Duplicate_Encoder
 
             return returnNode_clone;
         }
+
         public bool HasPathSum(TreeNode root, int targetSum)
         {
             if (root == null) return false;
             if (root.right == null && root.left == null && root.val == targetSum) return true;
             return HasPathSum(root.left, targetSum - root.val) || HasPathSum(root.right, targetSum - root.val);
         }
+
         public int ShortestPathBinaryMatrix(int[][] grid)
         {
             //定位終點
@@ -455,6 +518,7 @@ namespace Duplicate_Encoder
 
             return -1;
         }
+
         public int[][] UpdateMatrix(int[][] mat)
         {
             int[][] returnMatrix = new int[mat.Length][];
@@ -466,12 +530,12 @@ namespace Duplicate_Encoder
                     if (mat[i][j] == 0) returnMatrix[i][j] = 0;
                     else
                     {
-
                     }
                 }
             }
             return returnMatrix;
         }
+
         public int[] BeautifulArray(int n)
         {
             List<int> intList = new List<int>();
@@ -503,6 +567,7 @@ namespace Duplicate_Encoder
 
             return intArray;
         }
+
         public void parse_0AH(byte i)
         {
             //9 10 11 12
@@ -514,6 +579,7 @@ namespace Duplicate_Encoder
             //Console.WriteLine("speed:" + speed.ToString());
             //Console.WriteLine(DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss"));
         }
+
         public int ThreeSumMulti(int[] arr, int target)
         {
             double res = 0, M = 1e9 + 7;
@@ -549,6 +615,7 @@ namespace Duplicate_Encoder
             }
             return Convert.ToInt32(res % M);
         }
+
         public IList<IList<int>> ThreeSum(int[] nums)
         {
             List<IList<int>> returnList = new List<IList<int>>();
@@ -596,6 +663,7 @@ namespace Duplicate_Encoder
 
             return returnList;
         }
+
         public int ThreeSumClosest(int[] nums, int target)
         {
             //先排序
@@ -631,11 +699,11 @@ namespace Duplicate_Encoder
 
             return closest;
         }
+
         public TreeNode DeleteNode(TreeNode root, int key)
         {
             //LeetCode450
             return new TreeNode(0);
-
         }
 
         //reference: https://desolve.medium.com/%E5%BE%9Eleetcode%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95-35-bst-3-b1f225f39aa3
@@ -663,6 +731,7 @@ namespace Duplicate_Encoder
             maxdp(root);
             return res;
         }
+
         public int maxdp(TreeNode root)
         {
             if (root == null || !res) return 0;
@@ -675,6 +744,7 @@ namespace Duplicate_Encoder
             }
             return Math.Max(l, r) + 1;
         }
+
         public int[] PlusOne(int[] digits)
         {
             int[] returnArray = new int[digits.Length];
@@ -694,13 +764,13 @@ namespace Duplicate_Encoder
                     returnArray[i] = digits[i] + carry;
                     carry = 0;
                 }
-
             }
 
             int[] tempArray = new int[1] { 1 };
             if (carry == 1) returnArray = tempArray.Concat(returnArray).ToArray();
             return returnArray;
         }
+
         public int LengthOfLastWord(string s)
         {
             if (s.Trim().Length == 0) return 0;
@@ -709,12 +779,13 @@ namespace Duplicate_Encoder
 
             return s_split.Length == 1 ? s_split[0].Length : s_split[s_split.Length - 1].Length;
         }
+
         public int SearchInsert(int[] nums, int target)
         {
             int returnValue = nums.Select((v, i) => new { i, v }).Where(p => p.v >= target).Select(p => p.i).FirstOrDefault();
             return returnValue;
-
         }
+
         public void permutation(int[] nums, int startIndex)
         {
             if (startIndex == nums.Length - 1) Console.WriteLine(string.Join(",", nums));
@@ -730,8 +801,8 @@ namespace Duplicate_Encoder
                     }
                 }
             }
-
         }
+
         public void permutation(int[] nums)
         {
             if (nums.Length > 0) permutation(nums, 0);
@@ -743,6 +814,7 @@ namespace Duplicate_Encoder
             nums[index_A] = nums[index_B];
             nums[index_B] = temp;
         }
+
         public void NextPermutation(int[] nums)
         {
             if (nums.Length < 2) return;
@@ -781,6 +853,7 @@ namespace Duplicate_Encoder
             }
             return;
         }
+
         public bool isReverse(int[] nums)
         {
             int[] nums_clone = new int[nums.Length];
@@ -793,16 +866,19 @@ namespace Duplicate_Encoder
             }
             return true;
         }
+
         public int StrStr(string haystack, string needle)
         {
             return haystack.IndexOf(needle);
         }
+
         public int Divide(int dividend, int divisor)
         {
             if (dividend == 0) return 0;
             else if (dividend == int.MinValue && divisor == -1) return int.MaxValue;
             return dividend / divisor;
         }
+
         public int RemoveElement(int[] nums, int val)
         {
             int[] nums1 = nums.Where(x => x != val).ToArray();
@@ -812,6 +888,7 @@ namespace Duplicate_Encoder
             }
             return nums1.Length;
         }
+
         public int RemoveDuplicates(int[] nums)
         {
             Dictionary<int, int> DD = new Dictionary<int, int>();
@@ -833,6 +910,7 @@ namespace Duplicate_Encoder
 
             return temp + 1;
         }
+
         public bool IsValid(string s)
         {
             int len = s.Length;
@@ -864,6 +942,7 @@ namespace Duplicate_Encoder
 
             return index == -1;
         }
+
         public string LongestCommonPrefix(string[] strs)
         {
             string returnString = strs[0];
@@ -877,6 +956,7 @@ namespace Duplicate_Encoder
             }
             return returnString;
         }
+
         public int RomanToInt(string input)
         {
             int returnValue = 0;
@@ -960,10 +1040,10 @@ namespace Duplicate_Encoder
                     input = input.Remove(temp, 1);
                     returnValue += 1;
                 }
-
             }
             return returnValue;
         }
+
         public bool IsPalindrome(int x)
         {
             if (x < 0 || (x % 10 == 0 && x != 0)) return false;
@@ -981,6 +1061,7 @@ namespace Duplicate_Encoder
             }
             return x == revertedNumber || x == revertedNumber / 10;
         }
+
         public int Reverse(int x)
         {
             int orgin_x = x;
@@ -996,16 +1077,15 @@ namespace Duplicate_Encoder
             {
                 int returnInt = orgin_x > 0 ? Convert.ToInt32(returnValue == "" ? "0" : returnValue) : (0 - Convert.ToInt32(returnValue == "" ? "0" : returnValue));
                 return returnInt;
-
             }
             catch (OverflowException)
             {
                 return 0;
             }
         }
+
         public int[] TwoSum(int[] nums, int target)
         {
-
             int[] returnValue = new int[2];
             int index_i = 0;
             int index_j = 0;
@@ -1023,12 +1103,11 @@ namespace Duplicate_Encoder
             }
 
             return returnValue;
-
         }
     }
+
     public class FactorialTail
     {
-
         // fixme
         public static int zeroes(int base1, int number)
         {
@@ -1053,8 +1132,8 @@ namespace Duplicate_Encoder
             }
             return trailingzeroes;
         }
-
     }
+
     public class Evaluator
     {
         public static string sumStrings(string a, string b)
@@ -1114,6 +1193,7 @@ namespace Duplicate_Encoder
             return 0.0;
         }
     }
+
     public class DirReduction
     {
         public static string[] dirReduc(String[] arr)
@@ -1129,12 +1209,15 @@ namespace Duplicate_Encoder
                     case "NORTH":
                         arr_enum[i] = 1;
                         break;
+
                     case "SOUTH":
                         arr_enum[i] = -1;
                         break;
+
                     case "EAST":
                         arr_enum[i] = 100;
                         break;
+
                     case "WEST":
                         arr_enum[i] = -100;
                         break;
@@ -1162,12 +1245,15 @@ namespace Duplicate_Encoder
                     case 1:
                         returnArr[i] = "NORTH";
                         break;
+
                     case -1:
                         returnArr[i] = "SOUTH";
                         break;
+
                     case 100:
                         returnArr[i] = "EAST";
                         break;
+
                     case -100:
                         returnArr[i] = "WEST";
                         break;
@@ -1176,6 +1262,7 @@ namespace Duplicate_Encoder
             return returnArr;
         }
     }
+
     public class Bundesliga
     {
         public class soccer_team
@@ -1187,14 +1274,16 @@ namespace Duplicate_Encoder
             public int lose { get; set; } = 0;
             public int shot { get; set; } = 0;
             public int gotten { get; set; } = 0;
+
             public int point
             {
                 get { return win * 3 + tie; }
                 set { point = win * 3 + tie; }
             }
-            public int rank { get; set; } = 0;
 
+            public int rank { get; set; } = 0;
         }
+
         public static string Table(string[] results)
         {
             List<soccer_team> resultTable = new List<soccer_team>();
@@ -1269,7 +1358,6 @@ namespace Duplicate_Encoder
                         }
                     }
                     resultTable.Add(temp2);
-
                 }
                 else if (resultTable.Where(p => p.name == team1).Count() == 0 && resultTable.Where(p => p.name == team2).Count() != 0)
                 {
@@ -1331,7 +1419,6 @@ namespace Duplicate_Encoder
                         }
                     }
                 }
-
             }
             List<soccer_team> resultTable_sorted = resultTable.OrderByDescending(p => p.point).ThenByDescending(p => p.shot - p.gotten).ThenByDescending(p => p.shot).ThenBy(p => p.name).ToList();
             int rank_point = -1;
@@ -1356,6 +1443,7 @@ namespace Duplicate_Encoder
             return returnString.Remove(returnString.LastIndexOf("\n"));
         }
     }
+
     public class BattleshipField
     {
         public static bool ValidateBattlefield(int[,] field)
@@ -1394,7 +1482,6 @@ namespace Duplicate_Encoder
 
                         if (j + 1 < 10 && field[i, j + 1] == 1)
                         {
-
                         }
                         if (amount_1Dship > 0) amount_1Dship--;
                         else return false;
@@ -1406,16 +1493,17 @@ namespace Duplicate_Encoder
             return true;
         }
     }
+
     public class Kata4
     {
         public static string Justify(string str, int len)
         {
             if (str[len - 1] != ' ')
             {
-
             }
             return str;
         }
+
         public static long NextSmaller(long n)
         {
             // Strategy = go from right to left and find the first digit with a number greater to the left
@@ -1478,6 +1566,7 @@ namespace Duplicate_Encoder
             return output;
         }
     }
+
     public class Sudoku
     {
         public static bool ValidateSolution(int[][] board)
@@ -1506,11 +1595,11 @@ namespace Duplicate_Encoder
                     if (square.Contains(0)) return false;
                     unvalidCount += conditions.All(p => square.Contains(p)) ? 0 : 1;
                 }
-
             }
             return unvalidCount > 0 ? false : true;
         }
     }
+
     public class StripCommentsSolution
     {
         public static string StripComments(string text, string[] commentSymbols)
@@ -1521,6 +1610,7 @@ namespace Duplicate_Encoder
                         .TrimEnd(' ')));
         }
     }
+
     public class RangeExtraction
     {
         public static string Extract(int[] args)
@@ -1585,6 +1675,7 @@ namespace Duplicate_Encoder
             return returnValue;
         }
     }
+
     public static class Kata
     {
         public static List<string> GetPINs(string observed)
@@ -1652,13 +1743,13 @@ namespace Duplicate_Encoder
                         temp2 = fibonacci_num;
                         returnValue += fibonacci_num;
                     }
-
                 }
                 return returnValue;
             }
 
             return 4 * Fibonacci_sum(n);
         }
+
         public static int TrailingZeros(int n)
         {
             int fibonacci_num = 0;
@@ -1671,7 +1762,8 @@ namespace Duplicate_Encoder
             return fibonacci_num;
         }
     }
-    class Program
+
+    internal class Program
     {
         private static int[][][] matrix =
         {
@@ -1691,12 +1783,14 @@ namespace Duplicate_Encoder
         }
 
         private static int[] expected = { 1, -1, -20, 20 };
+
         public class IgnoreCaseSensitive : IEqualityComparer<string>
         {
             public bool Equals(string s1, string s2)
             {
                 return (s1.ToUpper().Equals(s2.ToUpper()));
             }
+
             public int GetHashCode(string str)
             {
                 return str.ToUpper().GetHashCode();
@@ -1704,8 +1798,8 @@ namespace Duplicate_Encoder
         }
 
         private static string[] msg = { "Determinant of a 1 x 1 matrix yields the value of the one element", "Should return 1 * 5 - 3 * 2 == -1 ", "" };
-
     }
+
     public class TicTacToe
     {
         public static int IsSolved(int[,] board)
@@ -1716,6 +1810,7 @@ namespace Duplicate_Encoder
             return 0;
         }
     }
+
     public class TopWords
     {
         public static List<string> Top3(string s)
@@ -1733,6 +1828,7 @@ namespace Duplicate_Encoder
             return sss;
         }
     }
+
     public class Parentheses
     {
         public static bool ValidParentheses(string input)
@@ -1758,6 +1854,7 @@ namespace Duplicate_Encoder
             return parentheses == 0;
         }
     }
+
     //public class Parentheses
     //{
     //    public static bool ValidParentheses(string input)
@@ -1806,6 +1903,7 @@ namespace Duplicate_Encoder
               .ToArray();
         }
     }
+
     public class Result
     {
         public class getMaxUnits_Model
@@ -1813,6 +1911,7 @@ namespace Duplicate_Encoder
             public long boxes { get; set; }
             public long unitsPerBox { get; set; }
         }
+
         public static long getMaxUnits(List<long> boxes, List<long> unitsPerBox, long truckSize)
         {
             int n = boxes.Count;
@@ -1833,8 +1932,8 @@ namespace Duplicate_Encoder
             }
 
             return total;
-
         }
+
         public static int getMinimumUniqueSum(List<int> arr)
         {
             var duplicate = arr.GroupBy(i => i)
@@ -1856,21 +1955,21 @@ namespace Duplicate_Encoder
                 }
             }
 
-
             return arr.Sum();
         }
+
         public static string shortestSubstring(string givenString)
         {
             string distinctString = givenString.ToCharArray().GroupBy(ch => ch).Select(g => g.First()).ToString();
             return distinctString;
         }
+
         public class numDuplicates_Model
         {
             public string name { get; set; }
             public int price { get; set; }
             public int weight { get; set; }
         }
-
 
         public static int numDuplicates(List<string> name, List<int> price, List<int> weight)
         {
@@ -1885,8 +1984,8 @@ namespace Duplicate_Encoder
             }
             List<numDuplicates_Model> returnList2 = returnList.GroupBy(p => new { p.name, p.price }).Select(g => g.First()).ToList();
             return name.Count - returnList2.Count;
-
         }
+
         public static void fizzBuzz(int n)
         {
             for (int i = 0; i < n; i++)
@@ -1908,10 +2007,9 @@ namespace Duplicate_Encoder
                     Console.WriteLine("{0}", i);
                 }
             }
-
         }
-
     }
+
     public class RemovedNumbers
     {
         public static List<long[]> removNb(long n)
@@ -1928,13 +2026,11 @@ namespace Duplicate_Encoder
                     long[] ab = new long[2] { a, b };
                     returnList.Add(ab);
                 }
-
             }
             return returnList;
         }
-
-
     }
+
     public class Matrix
     {
         public static dynamic Determinant(int[][] matrix)
@@ -1956,7 +2052,6 @@ namespace Duplicate_Encoder
                 int k, i, j, subi, subj;
                 double[,] SUBMat = new double[n, n];
                 var indices = Enumerable.Range(0, Mat.GetLength(0));
-
 
                 if (n == 1)
                 {
@@ -1982,7 +2077,6 @@ namespace Duplicate_Encoder
                                     SUBMat[subi, subj] = Mat[i, j];
                                     subj++;
                                 }
-
                             }
                             subi++;
                         }
@@ -2163,6 +2257,7 @@ public static class Kata5
             }
         }
     }
+
     public static string ToWeirdCase(string s)
     {
         string[] sArray = s.Split(' ');
@@ -2170,15 +2265,16 @@ public static class Kata5
         s = string.Join(" ", sArray);
         return s;
     }
+
     public static int[] MoveZeroes(int[] arr)
     {
         int[] nonZeroArray = arr.Where(x => x != 0).ToArray();
         int[] zeroArray = arr.Where(x => x == 0).ToArray();
         return nonZeroArray.Concat(zeroArray).ToArray();
     }
+
     public static int DescendingOrder(int num)
     {
-
         string str = Convert.ToString(num);
         char[] char_arr = new char[str.Length];
         char_arr = str.ToCharArray();
@@ -2198,9 +2294,7 @@ public static class Kata5
                     char_arr[i + 1] = temp;
                     count++;
                 }
-
             }
-
         }
         while (count > 0);
 
@@ -2244,6 +2338,7 @@ public static class Kata5
 
         return fibonacci_num;
     }
+
     public static string Decode(string morseCode)
     {
         try
@@ -2268,6 +2363,7 @@ public static class Kata5
             throw new System.NotImplementedException("Please provide some code.");
         }
     }
+
     public static string DecodeBits(string bits)
     {
         if (bits == "") throw new System.NotImplementedException("Please provide some code.");
@@ -2281,9 +2377,11 @@ public static class Kata5
                 case "1100":
                     return_value = ".";
                     break;
+
                 case "1111":
                     return_value = "-";
                     break;
+
                 case "0000":
                     return_value = " ";
                     break;
@@ -2291,6 +2389,7 @@ public static class Kata5
         }
         return return_value;
     }
+
     public static string Solution(int n)
     {
         if (n <= 0) throw new NotImplementedException();
@@ -2373,10 +2472,10 @@ public static class Kata5
                 n -= 1;
                 return_string += "I";
             }
-
         }
         return return_string;
     }
+
     public static bool IsPrime(int n)
     {
         if (n <= 0) return false;
@@ -2388,6 +2487,7 @@ public static class Kata5
         if (n == 1) return false;
         return true;
     }
+
     public static bool IsPangram(string str)
     {
         int temp = 0;
@@ -2403,8 +2503,8 @@ public static class Kata5
 
         if (temp == 26) return true;
         else return false;
-
     }
+
     public static string PigIt(string str)
     {
         string[] strArr = str.Split(' ');
@@ -2421,6 +2521,7 @@ public static class Kata5
 
         return returnString;
     }
+
     public static string PigItUnit(string str)
     {
         char[] strCharArr = str.ToCharArray();
