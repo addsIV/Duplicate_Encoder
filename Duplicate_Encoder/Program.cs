@@ -96,10 +96,11 @@ namespace Duplicate_Encoder
             ListNode l2_clone = l2;
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
-
-            Console.WriteLine(instanceA.GroupAnagrams(new string[] { "eat", "tea", "tan", "ate", "nat", "bat" }));
+            instanceA.SetZeroes(new int[][] { new int[] { 0, 1, 2, 0 }, new int[] { 3, 4, 5, 2 }, new int[] { 1, 3, 1, 5 } });
+            Console.WriteLine();
             //foreach (int i in temp)
             //{
+            //    Console.WriteLine();
             //}
             Console.Read();
 
@@ -171,6 +172,29 @@ namespace Duplicate_Encoder
 
     public class LeetCode_Solution
     {
+        public void SetZeroes(int[][] matrix)//73. Set Matrix Zeroes
+        {
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            Queue<int[]> q = new Queue<int[]>();
+
+            for (int x = 0; x < m; x++)
+            {
+                for (int y = 0; y < n; y++)
+                {
+                    if (matrix[x][y] == 0) q.Enqueue(new int[] { x, y });
+                }
+            }
+
+            foreach (var temp in q)
+            {
+                matrix[temp[0]] = new int[n];
+                for (int i = 0; i < m; i++)
+                {
+                    matrix[i][temp[1]] = 0;
+                }
+            }
+        }
         public bool IsAnagram(string a, string b)//242. Valid Anagram
         {
             if (a.Length != b.Length) return false;
