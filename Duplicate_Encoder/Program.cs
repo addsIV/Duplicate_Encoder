@@ -96,8 +96,8 @@ namespace Duplicate_Encoder
             ListNode l2_clone = l2;
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
-            instanceA.SetZeroes(new int[][] { new int[] { 0, 1, 2, 0 }, new int[] { 3, 4, 5, 2 }, new int[] { 1, 3, 1, 5 } });
-            Console.WriteLine();
+            //instanceA.SetZeroes(new int[][] { new int[] { 0, 1, 2, 0 }, new int[] { 3, 4, 5, 2 }, new int[] { 1, 3, 1, 5 } });
+            Console.WriteLine(instanceA.SumSubarrayMins2(new int[] { 3, 2, 1, 2, 4 }));
             //foreach (int i in temp)
             //{
             //    Console.WriteLine();
@@ -172,6 +172,87 @@ namespace Duplicate_Encoder
 
     public class LeetCode_Solution
     {
+        public int SumSubarrayMins2(int[] arr)//907. Sum of Subarray Minimums inO(n)
+        {
+            //使用單調堆疊方法(Monotonic Stack)，幫助找到向左/向右走訪第一個比當前元素小/大的元素。
+            long mod = Convert.ToInt64(1e9 + 7);
+            int n = arr.Length;
+            int[] left = new int[n];
+            int[] right = new int[n];
+            var nums = new Stack<int>();//計數
+            var lens = new Stack<int>();//計次
+            long sum = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                int len = 1;
+
+                while (nums.Count > 0 && nums.Peek() > arr[i])
+                {
+                    len += lens.Pop();
+                    nums.Pop();
+                }
+                nums.Push(arr[i]);
+                lens.Push(len);
+                left[i] = len;
+            }
+
+            nums.Clear();
+            lens.Clear();
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                int len = 1;
+
+                while (nums.Count > 0 && nums.Peek() > arr[i])
+                {
+                    len += lens.Pop();
+                    nums.Pop();
+                }
+                nums.Push(arr[i]);
+                lens.Push(len);
+                right[i] = len;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                sum += (long)arr[i] * (long)(left[i]) * (long)(right[i]) % mod;
+            }
+
+            return (int)(sum % mod);
+        }
+        public int SumSubarrayMins(int[] arr)//907. Sum of Subarray Minimums inO(n^2)
+        {
+            long mod = Convert.ToInt64(1e9 + 7);
+            int n = arr.Length;
+            long sum = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                int left = 0, right = 0;
+
+                for (int j = i - 1; j >= 0 && arr[j] > arr[i]; j--) left++;
+                for (int j = i + 1; j < n && arr[j] >= arr[i]; j++) right++;
+                sum += (long)arr[i] * (long)(left + 1) * (long)(right + 1) % mod;
+            }
+            return (int)(sum % mod);
+        }
+        public int MaxSubArray(int[] nums)//53. Maximum Subarray
+        {
+            int sum = 0;
+            int maxSum = nums[0];
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                sum += nums[i];
+                if (nums[i] > sum)//若當下的數字比加上當下的數字的總和還要大，代表前面都是拖油瓶
+                {
+                    sum = nums[i];//重新由當下的數字開始計算sum
+                }
+                maxSum = Math.Max(sum, maxSum);
+            }
+            return maxSum;
+        }
         public void SetZeroes(int[][] matrix)//73. Set Matrix Zeroes
         {
             int m = matrix.Length;
