@@ -204,7 +204,7 @@ namespace Duplicate_Encoder
             {
                 int len = 1;
 
-                while (nums.Count > 0 && nums.Peek() > arr[i])
+                while (nums.Count > 0 && nums.Peek() >= arr[i])
                 {
                     len += lens.Pop();
                     nums.Pop();
