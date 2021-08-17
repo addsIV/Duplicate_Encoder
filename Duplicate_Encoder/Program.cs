@@ -97,7 +97,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
             //instanceA.SetZeroes(new int[][] { new int[] { 0, 1, 2, 0 }, new int[] { 3, 4, 5, 2 }, new int[] { 1, 3, 1, 5 } });
-            Console.WriteLine(instanceA.SumSubarrayMins2(new int[] { 3, 2, 1, 2, 4 }));
+            Console.WriteLine(instanceA.MyAtoi("  0000000000012345678"));
             //foreach (int i in temp)
             //{
             //    Console.WriteLine();
@@ -169,10 +169,58 @@ namespace Duplicate_Encoder
             return true;
         }
     }
+    public class NumArray//leet 303
+    {
+        public int[] numArray = new int[] { };
+
+        public NumArray(int[] nums)
+        {
+            this.numArray = nums;
+        }
+
+        public int SumRange(int left, int right)
+        {
+            if (left > right || right >= this.numArray.Length) return -1;
+
+            int sum = 0;
+            for (int i = left; i <= right; i++)
+            {
+                sum += this.numArray[i];
+            }
+            return sum;
+        }
+    }
 
     public class LeetCode_Solution
     {
-        public int SumSubarrayMins2(int[] arr)//907. Sum of Subarray Minimums inO(n)
+        public int MyAtoi(string s)//8. String to Integer (atoi)
+        {
+            if (s == null || s == String.Empty) return 0;
+
+            int output = 0, sign = 1;
+            bool findSign = false, findDigit = false;
+
+            foreach (var c in s)
+            {
+                if (!findSign && !findDigit && (c == '-' || c == '+'))//當找到+或-且還沒找到其他+-或是數字時
+                {
+                    findSign = true;
+                    sign = c == '+' ? 1 : -1;
+                }
+                else if (c >= '0' && c <= '9')
+                {
+                    findDigit = true;
+
+                    if (output == 0 && c == '0') continue;//略過前置0
+                    else if (output > int.MaxValue / 10 || (output == int.MaxValue / 10 && c - '0' > int.MaxValue % 10)) return sign == 1 ? int.MaxValue : int.MinValue;//處理邊界
+                    else output = output * 10 + (c - '0');
+                }
+                else if (c != ' ' || ((findDigit || findSign) && c == ' ')) break;//找到文字或是空白(但已經找到數字)就不找了
+            }
+
+            return sign * output;
+        }
+        public int SumSubarrayMins2(int[] arr)//907. Sum of Subarray Minimums in O(n)
         {
             //使用單調堆疊方法(Monotonic Stack)，幫助找到向左/向右走訪第一個比當前元素小/大的元素。
             long mod = Convert.ToInt64(1e9 + 7);
@@ -221,7 +269,7 @@ namespace Duplicate_Encoder
 
             return (int)(sum % mod);
         }
-        public int SumSubarrayMins(int[] arr)//907. Sum of Subarray Minimums inO(n^2)
+        public int SumSubarrayMins(int[] arr)//907. Sum of Subarray Minimums in O(n^2)
         {
             long mod = Convert.ToInt64(1e9 + 7);
             int n = arr.Length;
