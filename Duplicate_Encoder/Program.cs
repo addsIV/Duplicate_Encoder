@@ -97,7 +97,7 @@ namespace Duplicate_Encoder
             l2.next = new ListNode(3);
             l2.next.next = new ListNode(4);
             //instanceA.SetZeroes(new int[][] { new int[] { 0, 1, 2, 0 }, new int[] { 3, 4, 5, 2 }, new int[] { 1, 3, 1, 5 } });
-            Console.WriteLine(instanceA.MyAtoi("  0000000000012345678"));
+            Console.WriteLine(instanceA.CanCompleteCircuit(new int[] { 2 }, new int[] { 2 }));
             //foreach (int i in temp)
             //{
             //    Console.WriteLine();
@@ -157,13 +157,13 @@ namespace Duplicate_Encoder
 
             foreach (char i in b)
             {
-                if (dict.ContainsKey(i) && dict[i] > 0) --dict[i];
+                if (dict.ContainsKey(i)) --dict[i];
                 else return false;
             }
 
             foreach (var i in dict.Keys)
             {
-                if (dict[i] > 0) return false;
+                if (dict[i] != 0) return false;
             }
 
             return true;
@@ -193,6 +193,111 @@ namespace Duplicate_Encoder
 
     public class LeetCode_Solution
     {
+        public int CanCompleteCircuit(int[] gas, int[] cost)//134. Gas Station
+        {
+            for (int i = 0; i < gas.Length; i++)
+            {
+                if (gas[i] >= cost[i])
+                {
+                    int tank = 0;
+                    int exit = i - 1 >= 0 ? i - 1 : i - 1 + gas.Length;
+                    for (int j = 0; j < gas.Length; j++)
+                    {
+                        int temp = i + j > gas.Length - 1 ? i + j - gas.Length : i + j;
+                        tank = tank + gas[temp] - cost[temp];
+                        if (temp == exit && tank >= 0) return i;
+                        else if (tank > 0) continue;
+                        else break;
+                    }
+                }
+            }
+            return -1;
+        }
+        public string MinWindow(string source, string target)//76. Minimum Window Substring
+        {
+            if (target.Length > source.Length) return "";
+
+            var dict = new Dictionary<char, int>();//記下target中每個字符出現次數
+            var cur = new Dictionary<char, int>();//用來記目前source中所含有target字符的個數
+
+            foreach (char i in target)
+            {
+                if (dict.ContainsKey(i)) ++dict[i];
+                else dict.Add(i, 1);
+
+                if (!cur.ContainsKey(i)) cur.Add(i, 0);//只記種類
+            }
+
+            int head = 0,
+                tail = 0,
+                return_head = -1,
+                return_tail = -1,
+                count = 0;
+
+            while (true)
+            {
+                if (count >= target.Length && LastOneIsContainfrontOne(dict, cur))//當cur包含所有dict的直就能進入(count負責cut corner，若count還沒比target.Length多則繼續去找target)
+                {
+                    if (return_head == -1 || tail - head - 1 < return_tail - return_head) //初始化，且當目前的slide window比之前記的slide window小時，則指向目前的slide window
+                    {
+                        return_head = head;
+                        return_tail = tail - 1;
+                    }
+
+                    if (dict.ContainsKey(source[head]))//head準備要往下一格，所以先確認head指到的字符是否在target中，有的話要扣掉
+                    {
+                        cur[source[head]] -= 1;
+                        count--;
+                    }
+
+                    head++;
+                }
+                else if (tail < source.Length)//先找到target全部字符，並將出現個數記入cur
+                {
+                    if (dict.ContainsKey(source[tail]))
+                    {
+                        cur[source[tail]] += 1;
+                        count++;
+                    }
+
+                    tail++;
+                }
+                else break;
+            }
+
+            return return_tail == -1 ? string.Empty : source.Substring(return_head, return_tail - return_head + 1);//若沒找到則return empty
+        }
+
+        private bool LastOneIsContainfrontOne(Dictionary<char, int> dict, Dictionary<char, int> cur)
+        {
+            foreach (var item in dict)
+                if (item.Value > cur[item.Key])
+                    return false;
+
+            return true;
+        }
+        public bool containTarget(string source, string target)
+        {
+            var dict = new Dictionary<char, int>();
+
+            foreach (char i in target)
+            {
+                if (dict.ContainsKey(i)) ++dict[i];
+                else dict.Add(i, 1);
+            }
+
+            foreach (char i in source)
+            {
+                if (dict.ContainsKey(i)) --dict[i];
+            }
+
+            foreach (var i in dict.Keys)
+            {
+                if (dict[i] > 0) return false;
+            }
+
+            return true;
+        }
         public int MyAtoi(string s)//8. String to Integer (atoi)
         {
             if (s == null || s == String.Empty) return 0;
