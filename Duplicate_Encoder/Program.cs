@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
+using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
 
 namespace Duplicate_Encoder
 {
@@ -116,7 +113,7 @@ namespace Duplicate_Encoder
             //    Console.Read();
             //}
             //string inputString = Console.ReadLine();
-            Console.WriteLine(instanceA.MaxProduct(bst1));
+            Console.WriteLine(instanceA.GetFolderNames(new string[] { "wano", "wano", "wano", "wano" }));
             Console.Read();
         }
     }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
 using Node = Duplicate_Encoder.DataModel.Node;
+using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
 
 namespace Duplicate_Encoder
 {
@@ -37,6 +35,24 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public string[] GetFolderNames(string[] names)//1487. Making File Names Unique
+            {
+                var dict = new Dictionary<string, int>();
+                for (int i = 0; i < names.Length; i++)
+                {
+                    string name = names[i];
+
+                    if (dict.ContainsKey(name))
+                    {
+                        while (dict.ContainsKey(name + "(" + (dict[name]) + ")")) dict[name]++;
+                        names[i] = name + "(" + (dict[name]) + ")";
+                        dict.Add(name + "(" + (dict[name]) + ")", 1);
+                    }
+                    else dict.Add(name, 1);
+                }
+
+                return names;
+            }
             public int MinDepth(TreeNode root)//111. Minimum Depth of Binary Tree
             {
                 if (root == null) return 0;
