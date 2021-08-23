@@ -35,6 +35,62 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public bool IsRectangleOverlap(int[] rec1, int[] rec2)//836. Rectangle Overlap
+            {
+                if ((rec2[2] < rec1[0] && rec2[3] < rec1[1]) || (rec1[2] < rec2[0] && rec1[3] < rec2[1])) return false;
+                return true;
+            }
+            public int RectangleArea_TLE(int[][] rectangles)//850. Rectangle Area II
+            {
+                var dict = new Dictionary<long, long[]>();
+                foreach (var rec in rectangles)
+                {
+                    for (int i = rec[1]; i < rec[3]; i++)
+                    {
+                        if (dict.ContainsKey(i))
+                        {
+                            dict[i][0] = Math.Min(dict[i][0], rec[0]);
+                            dict[i][1] = Math.Max(dict[i][1], rec[2]);
+                        }
+                        else dict.Add(i, new long[] { rec[0], rec[2] });
+                    }
+                }
+
+                long sum = 0;
+                foreach (var k in dict.Keys)
+                {
+                    sum += dict[k][1] - dict[k][0];
+                    sum %= mod;
+                }
+
+                return (int)sum;
+            }
+            public int ComputeArea(int[] rec1, int[] rec2)//223. Rectangle Area
+            {
+                int ax1 = rec1[0];
+                int ay1 = rec1[1];
+                int ax2 = rec1[2];
+                int ay2 = rec1[3];
+                int bx1 = rec2[0];
+                int by1 = rec2[1];
+                int bx2 = rec2[2];
+                int by2 = rec2[3];
+
+                if (ax1 > ax2 || ay1 > ay2 || bx1 > bx2 || by1 > by2) return 0;
+
+                int overlapping = 0;
+                if (ax1 < bx1 && ay1 < by1 && ax2 > bx2 && ay2 > by2) overlapping = singleArea(bx1, by1, bx2, by2);
+                else if (ax1 > bx1 && ay1 > by1 && ax2 < bx2 && ay2 < by2) overlapping = singleArea(ax1, ay1, ax2, ay2);
+                else overlapping = singleArea(Math.Max(ax1, bx1), Math.Max(ay1, by1), Math.Min(ax2, bx2), Math.Min(ay2, by2));
+
+                return singleArea(ax1, ay1, ax2, ay2) + singleArea(bx1, by1, bx2, by2) - overlapping;
+
+                int singleArea(int x1, int y1, int x2, int y2)
+                {
+                    if (x1 > x2 || y1 > y2) return 0;
+                    return (x2 - x1) * (y2 - y1);
+                }
+            }
             public string[] GetFolderNames(string[] names)//1487. Making File Names Unique
             {
                 var dict = new Dictionary<string, int>();

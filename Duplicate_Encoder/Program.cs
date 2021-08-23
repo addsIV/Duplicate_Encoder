@@ -113,7 +113,7 @@ namespace Duplicate_Encoder
             //    Console.Read();
             //}
             //string inputString = Console.ReadLine();
-            Console.WriteLine(instanceA.GetFolderNames(new string[] { "wano", "wano", "wano", "wano" }));
+            Console.WriteLine(instanceA.RectangleArea(new int[3][] { new int[] { 0, 0, 2, 2 }, new int[] { 1, 0, 2, 3 }, new int[] { 1, 0, 3, 1 } }));
             Console.Read();
         }
     }
