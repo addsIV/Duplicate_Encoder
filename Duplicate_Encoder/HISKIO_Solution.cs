@@ -1,13 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Duplicate_Encoder
 {
     public class HISKIO_Solution
     {
+        public void Swap(int[] targetArray, int a, int b)
+        {
+            int temp = targetArray[a];
+            targetArray[a] = targetArray[b];
+            targetArray[b] = temp;
+        }
+        public void bubbleSort(int[] unsortedArray)
+        {
+            int n = unsortedArray.Length;
+
+            for (int i = 0; i <= n - 2; i++)
+            {
+                bool flag = true;
+
+                for (int j = n - 1; j >= i + 1; j--)
+                {
+                    if (unsortedArray[j] < unsortedArray[j - 1])
+                    {
+                        Swap(unsortedArray, j, j - 1);
+                        flag = false;
+                    }
+                }
+
+                if (flag) return;
+            }
+        }
+        public void insertionSort(int[] unsortedArray)
+        {
+            int n = unsortedArray.Length;
+
+            for (int i = 1; i < n; i++)
+            {
+                int key = unsortedArray[i];
+                int j = i - 1;
+
+                while (j >= 0 && unsortedArray[j] > key)
+                {
+                    unsortedArray[j + 1] = unsortedArray[j];
+                    j--;
+                }
+
+                unsortedArray[j + 1] = key;
+            }
+        }
+
+        public void selectionSort(int[] unsortedArray)
+        {
+            int n = unsortedArray.Length;
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                int minIndex = i;
+
+                for (int j = i; j < n; j++)
+                {
+                    if (unsortedArray[j] < unsortedArray[minIndex]) minIndex = j;
+                }
+
+                Swap(unsortedArray, i, minIndex);
+            }
+        }
         public bool Alogroithm_unit7_frequencyTest(string a, string b)
         {
             if (a.Length != b.Length) return false;

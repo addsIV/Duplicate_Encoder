@@ -35,6 +35,71 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public string LongestPalindrome(string s)//5. Longest Palindromic Substring
+            {
+                if (s == null || s.Length < 2) return s;
+
+                int maxStart = 0, maxEnd = 0;
+
+                for (int i = 0; i < s.Length; i++)
+                {
+                    int start = i, end = i;
+
+                    while (start > 0 && end < s.Length - 1 && s[start - 1] == s[end + 1])//index左邊與右邊相等的話就再往外看，直到左右不相等為止
+                    {
+                        start--;
+                        end++;
+                    }
+
+                    if (end - start > maxEnd - maxStart)
+                    {
+                        maxStart = start;
+                        maxEnd = end;
+                    }
+
+                    if (i < s.Length && s[i] == s[i + 1])//考慮相同字元並排的情況
+                    {
+                        start = i;
+                        end = i + 1;
+
+                        while (start > 0 && end < s.Length - 1 && s[start - 1] == s[end + 1])
+                        {
+                            start--;
+                            end++;
+                        }
+
+                        if (end - start > maxEnd - maxStart)
+                        {
+                            maxStart = start;
+                            maxEnd = end;
+                        }
+                    }
+                }
+
+                return s.Substring(maxStart, maxEnd - maxStart + 1);
+            }
+            public bool FindTarget(TreeNode root, int k)//653. Two Sum IV - Input is a BST
+            {
+                var hashset = new HashSet<int>();
+
+                getBSTval(root);
+
+                void getBSTval(TreeNode t)
+                {
+                    if (t == null) return;
+                    hashset.Add(t.val);
+
+                    getBSTval(t.left);
+                    getBSTval(t.right);
+                }
+
+                foreach (var i in hashset)
+                {
+                    if (i * 2 != k && hashset.Contains(k - i)) return true;
+                }
+
+                return false;
+            }
             public bool IsRectangleOverlap(int[] rec1, int[] rec2)//836. Rectangle Overlap
             {
                 if ((rec2[2] < rec1[0] && rec2[3] < rec1[1]) || (rec1[2] < rec2[0] && rec1[3] < rec2[1])) return false;
