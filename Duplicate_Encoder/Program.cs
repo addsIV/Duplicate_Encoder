@@ -116,9 +116,10 @@ namespace Duplicate_Encoder
             //    Console.Read();
             //}
             //string inputString = Console.ReadLine();
-            var unsortedArray = new int[] { 4, 3, 2, 5, 1, 6 };
-            instanceB.selectionSort(unsortedArray);
-            Console.WriteLine(instanceA.FindTarget(bst2, 2));
+
+            //var unsortedArray = new int[] { 4, 3, 2, 5, 1, 6 };
+            //instanceB.selectionSort(unsortedArray);
+            Console.WriteLine(instanceA.MinOperations(new int[] { 5, 6, 4, 3, 1, 2 }, new int[] { 6, 3, 3, 1, 4, 5, 3, 4, 1, 3, 4 }));
             Console.Read();
         }
     }

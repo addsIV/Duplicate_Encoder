@@ -35,6 +35,57 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public int MinOperations(int[] nums1, int[] nums2)//1775. Equal Sum Arrays With Minimum Number of Operations
+            {
+                //red:https://www.youtube.com/watch?v=FdM_IFKXaHY
+                if (Math.Min(nums1.Length, nums2.Length) * 6 < Math.Max(nums1.Length, nums2.Length)) return -1;
+
+                int i = 0, j = 0, steps = 0;
+                int sum1 = nums1.Sum();
+                int sum2 = nums2.Sum();
+
+                if (sum1 > sum2) return MinOperations(nums2, nums1);
+
+                Array.Sort(nums1);
+                Array.Sort(nums2);
+                Array.Reverse(nums2);
+
+                while (sum1 != sum2)
+                {
+                    int diff = sum2 - sum1;
+                    int d1 = i == nums1.Length ? 0 : 6 - nums1[i];
+                    int d2 = j == nums2.Length ? 0 : nums2[j] - 1;
+                    int d = Math.Min(diff, Math.Max(d1, d2));
+
+                    if (d1 >= d2)
+                    {
+                        sum1 += d;
+                        i++;
+                    }
+                    else
+                    {
+                        sum2 -= d;
+                        j++;
+                    }
+
+                    steps++;
+                }
+                return steps;
+            }
+            public string ComplexNumberMultiply(string num1, string num2)//537. Complex Number Multiplication
+            {
+                int[] parse(string complexNumber)//{real, imaginary}
+                {
+                    return new int[] { Convert.ToInt32(complexNumber.Split('+')[0]), Convert.ToInt32(complexNumber.Split('+')[1].TrimEnd('i')) };
+                }
+
+                var num1_parse = parse(num1);
+                var num2_parse = parse(num2);
+
+                int realPart = num1_parse[0] * num2_parse[0] + (-1) * num1_parse[1] * num2_parse[1];
+                int imaginaryPart = num1_parse[0] * num2_parse[1] + num2_parse[0] * num1_parse[1];
+                return Convert.ToString(realPart) + "+" + Convert.ToString(imaginaryPart) + "i";
+            }
             public string LongestPalindrome(string s)//5. Longest Palindromic Substring
             {
                 if (s == null || s.Length < 2) return s;
