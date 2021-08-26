@@ -35,6 +35,20 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public bool JudgeSquareSum(int c)//633. Sum of Square Numbers
+            {
+                long a = 0, b = (long)Math.Sqrt(c);//
+
+                while (a <= b)
+                {
+                    long temp = a * a + b * b;
+                    if (temp == c) return true;
+                    else if (temp > c) --b;
+                    else ++a;
+                }
+
+                return false;
+            }
             public int MinOperations(int[] nums1, int[] nums2)//1775. Equal Sum Arrays With Minimum Number of Operations
             {
                 //red:https://www.youtube.com/watch?v=FdM_IFKXaHY
