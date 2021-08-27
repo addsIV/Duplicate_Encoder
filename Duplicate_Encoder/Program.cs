@@ -121,7 +121,7 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            Console.WriteLine(instanceA.JudgeSquareSum(2));
+            Console.WriteLine(instanceA.IsValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"));
             Console.Read();
         }
     }

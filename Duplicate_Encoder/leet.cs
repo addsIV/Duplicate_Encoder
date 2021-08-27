@@ -35,6 +35,25 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public bool IsValidSerialization(string preorder)//331. Verify Preorder Serialization of a Binary Tree
+            {
+                List<string> list = new List<string>();
+
+                foreach (var node in preorder.Split(','))
+                {
+                    list.Add(node);
+
+                    while (list.Count >= 3 && list[list.Count - 1] == "#" && list[list.Count - 2] == "#" && list[list.Count - 3] != "#")
+                    {
+                        list.RemoveAt(list.Count - 1);
+                        list.RemoveAt(list.Count - 1);
+                        list.RemoveAt(list.Count - 1);
+                        list.Add("#");
+                    }
+                }
+
+                return list.Count == 1 && list[0] == "#";
+            }
             public bool JudgeSquareSum(int c)//633. Sum of Square Numbers
             {
                 long a = 0, b = (long)Math.Sqrt(c);//
