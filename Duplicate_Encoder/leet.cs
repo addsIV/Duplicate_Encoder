@@ -35,6 +35,19 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public int MaxCount(int m, int n, int[][] ops)//598. Range Addition II
+            {
+                int m_Min = int.MaxValue;
+                int n_Min = int.MaxValue;
+
+                foreach (var op in ops)
+                {
+                    m_Min = Math.Min(m_Min, op[0]);
+                    n_Min = Math.Min(n_Min, op[1]);
+                }
+
+                return ops.Length == 0 ? m * n : m_Min * n_Min;
+            }
             public bool IsValidSerialization(string preorder)//331. Verify Preorder Serialization of a Binary Tree
             {
                 List<string> list = new List<string>();
