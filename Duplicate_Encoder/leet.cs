@@ -35,6 +35,28 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public int FindMin(int[] nums)//153. Find Minimum in Rotated Sorted Array
+            {
+                //特殊Binary Search
+                if (nums.Length == 1) return nums[0];
+
+                int left = 0, right = nums.Length - 1;
+
+                if (nums[right] > nums[0]) return nums[0];
+
+                while (left <= right)
+                {
+                    int mid = left + (right - left) / 2;
+
+                    if (nums[mid] > nums[mid + 1]) return nums[mid + 1];
+                    if (nums[mid - 1] > nums[mid]) return nums[mid];
+
+                    if (nums[mid] > nums[left]) left = mid + 1;
+                    else right = mid - 1;
+                }
+
+                return -1;
+            }
             public int MaxCount(int m, int n, int[][] ops)//598. Range Addition II
             {
                 int m_Min = int.MaxValue;
