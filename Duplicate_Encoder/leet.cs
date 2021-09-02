@@ -35,6 +35,31 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public int ArrayNesting(int[] nums)//565. Array Nesting
+            {
+                int maxLength = 0;
+                bool[] visited = new bool[nums.Length];
+
+                foreach (int i in nums)
+                {
+                    if (!visited[i])
+                    {
+                        int temp = nums[i], count = 0;
+
+                        do
+                        {
+                            temp = nums[temp];
+                            count++;
+                            visited[i] = true;
+                        }
+                        while (temp != nums[i]);
+
+                        maxLength = Math.Max(maxLength, count);
+                    }
+                }
+
+                return maxLength;
+            }
             public int FindMin(int[] nums)//153. Find Minimum in Rotated Sorted Array
             {
                 //特殊Binary Search

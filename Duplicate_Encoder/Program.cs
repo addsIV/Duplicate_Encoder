@@ -121,7 +121,7 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            Console.WriteLine(instanceA.FindMin(new int[] { 5, 6, 7, 0, 1, 2, 3, 4 }));
+            Console.WriteLine(instanceA.ArrayNesting(new int[] { 0, 2, 1 }));
             Console.Read();
         }
     }
