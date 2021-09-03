@@ -126,17 +126,17 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            //Console.WriteLine(instanceA.ArrayNesting(new int[] { 0, 2, 1 }));
-            //Console.Read();
+            Console.WriteLine(instanceA.GenerateTrees(3));
+            Console.Read();
 
-            System.Timers.Timer timer = new System.Timers.Timer();
-            timer.Enabled = true;
-            timer.Interval = 1000;
-            timer.Start();
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(test);
+            //System.Timers.Timer timer = new System.Timers.Timer();
+            //timer.Enabled = true;
+            //timer.Interval = 1000;
+            //timer.Start();
+            //timer.Elapsed += new System.Timers.ElapsedEventHandler(test);
 
-            var stopFlag = Console.ReadKey();
-            if (stopFlag.Key == ConsoleKey.Enter) JobManager.Stop();
+            //var stopFlag = Console.ReadKey();
+            //if (stopFlag.Key == ConsoleKey.Enter) JobManager.Stop();
         }
         private static void test(object source, ElapsedEventArgs e)
         {
