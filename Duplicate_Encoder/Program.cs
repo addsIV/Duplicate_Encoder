@@ -1,4 +1,8 @@
-﻿using System;
+﻿using FluentScheduler;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
 using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
 
@@ -6,6 +10,7 @@ namespace Duplicate_Encoder
 {
     internal class main
     {
+        private static readonly SemaphoreSlim Locker = new SemaphoreSlim(2);
         private static void Main(string[] args)
         {
             //int[][] array =
@@ -121,8 +126,43 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            Console.WriteLine(instanceA.ArrayNesting(new int[] { 0, 2, 1 }));
-            Console.Read();
+            //Console.WriteLine(instanceA.ArrayNesting(new int[] { 0, 2, 1 }));
+            //Console.Read();
+
+            System.Timers.Timer timer = new System.Timers.Timer();
+            timer.Enabled = true;
+            timer.Interval = 1000;
+            timer.Start();
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(test);
+
+            var stopFlag = Console.ReadKey();
+            if (stopFlag.Key == ConsoleKey.Enter) JobManager.Stop();
+        }
+        private static void test(object source, ElapsedEventArgs e)
+        {
+            JobManager.Initialize(new FluentSchedulerFactory());
+        }
+
+        private static void stop(object source, ElapsedEventArgs e)
+        {
+            JobManager.Stop();
+        }
+
+        private static async Task DoWork()
+        {
+            await Locker.WaitAsync();
+
+            await Task.Run(
+                () =>
+                {
+                    Console.WriteLine($"{DateTime.Now:yyyy-MM-dd HH:mm:ss}_Do work.");
+
+                    Thread.Sleep(3000);
+                });
+
+            Console.WriteLine("Done.");
+
+            Locker.Release();
         }
     }
 }
