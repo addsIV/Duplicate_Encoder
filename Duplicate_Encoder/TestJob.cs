@@ -2,13 +2,14 @@
 using FluentScheduler;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 namespace Duplicate_Encoder
 {
     public class TestJob : IJob
     {
-        private SqlConnection _conn = new SqlConnection(@"Data Source=.\sqlserver2017;Initial Catalog=KMBDB;Persist Security Info=True;User ID=sa;Password=kl314275;Timeout=200");
+        private SqlConnection _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MainConnectionString"].ToString());
 
         void IJob.Execute()
         {

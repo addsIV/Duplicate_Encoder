@@ -198,7 +198,7 @@ namespace Duplicate_Encoder
                 tmpdt.Columns.Add("MDY_DT");
                 tmpdt.Columns.Add("IP_NM");
 
-                DateTime startDate = new DateTime(2021, 6, 19);
+                DateTime startDate = new DateTime(2021, 8, 26);
                 var rng = new Random();
                 while (startDate < DateTime.Now)
                 {

@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="polling.cs" />
     <Compile Include="FluentSchedulerFactory.cs" />
     <Compile Include="TestJob.cs" />
     <Compile Include="DataSyncJob.cs" />

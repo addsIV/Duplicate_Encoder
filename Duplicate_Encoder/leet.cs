@@ -35,6 +35,65 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public string ShiftingLetters(string s, int[] shifts)//848. Shifting Letters
+            {
+                //interval asci between a and z
+                const int Round = 'z' - 'a' + 1;
+
+                //to access array
+                var ca = s.ToCharArray();
+                //previous shift
+                var prev = 0;
+                for (int j = shifts.Length - 1; j >= 0; j--)
+                {
+                    //current shift = current + previous
+                    prev = (prev + shifts[j]) % Round;
+
+                    //new char with control max border
+                    int newC = ca[j] + prev;
+                    if (newC > 'z')
+                        newC -= Round;
+                    ca[j] = (char)newC;
+                }
+
+                return new string(ca);
+            }
+            public ListNode ReverseList(ListNode head)//206. Reverse Linked List
+            {
+                if (head == null || head.next == null) return head;
+
+                ListNode i = head, j = i.next, k = j.next;
+
+                i.next = null;
+
+                while (j != null)
+                {
+                    j.next = i;
+
+                    i = j;
+                    j = k;
+
+                    if (j != null) k = j.next;
+                }
+
+                return i;
+            }
+            public char SlowestKey(int[] releaseTimes, string keysPressed)//1629. Slowest Key
+            {
+                int longestTime = 0, indexOfLongestKey = 0;
+                for (int i = 0; i < keysPressed.Length; i++)
+                {
+                    int pressTime = i == 0 ? releaseTimes[i] - 0 : releaseTimes[i] - releaseTimes[i - 1];
+
+                    if ((pressTime > longestTime) || (pressTime == longestTime && keysPressed[i] > keysPressed[indexOfLongestKey]))
+                    {
+                        longestTime = pressTime;
+                        indexOfLongestKey = i;
+                    }
+                }
+
+                return keysPressed[indexOfLongestKey];
+            }
             public IList<TreeNode> GenerateTrees(int n)//95. Unique Binary Search Trees II
             {
                 if (n == 0) return new List<TreeNode>();

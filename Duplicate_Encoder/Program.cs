@@ -2,7 +2,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
 using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
 
@@ -126,26 +125,19 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            Console.WriteLine(instanceA.GenerateTrees(3));
-            Console.Read();
+            var TH = new polling();
+            TH.Run();
 
-            //System.Timers.Timer timer = new System.Timers.Timer();
-            //timer.Enabled = true;
-            //timer.Interval = 1000;
-            //timer.Start();
-            //timer.Elapsed += new System.Timers.ElapsedEventHandler(test);
+            Console.WriteLine(new Guid(""));
 
-            //var stopFlag = Console.ReadKey();
-            //if (stopFlag.Key == ConsoleKey.Enter) JobManager.Stop();
-        }
-        private static void test(object source, ElapsedEventArgs e)
-        {
-            JobManager.Initialize(new FluentSchedulerFactory());
-        }
 
-        private static void stop(object source, ElapsedEventArgs e)
-        {
-            JobManager.Stop();
+            while (true)
+            {
+                var st = Console.ReadLine();
+                Console.WriteLine(st);
+                if (st == "vs") fakedata.POSTinsertFakeData_Visible();
+                if (st == "stop") JobManager.Stop();
+            }
         }
 
         private static async Task DoWork()
@@ -164,5 +156,6 @@ namespace Duplicate_Encoder
 
             Locker.Release();
         }
+
     }
 }
