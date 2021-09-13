@@ -35,6 +35,14 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public bool IsSameTree(TreeNode p, TreeNode q)//100. Same Tree
+            {
+                if (p == null && q == null) return true;
+                if (p == null || q == null) return false;
+                if (p.val != q.val) return false;
+
+                return IsSameTree(p.right, q.right) && IsSameTree(p.left, q.left);
+            }
             public string ShiftingLetters(string s, int[] shifts)//848. Shifting Letters
             {
                 //interval asci between a and z
