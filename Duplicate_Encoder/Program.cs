@@ -1,5 +1,4 @@
-﻿using FluentScheduler;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
@@ -125,19 +124,21 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            var TH = new polling();
-            TH.Run();
+            Console.WriteLine(instanceA.ReverseOnlyLetters("abc-d"));
+            Console.ReadKey();
+            //var TH = new polling();
+            //TH.Run();
 
-            Console.WriteLine(new Guid(""));
+            //Console.WriteLine(new Guid(""));
 
 
-            while (true)
-            {
-                var st = Console.ReadLine();
-                Console.WriteLine(st);
-                if (st == "vs") fakedata.POSTinsertFakeData_Visible();
-                if (st == "stop") JobManager.Stop();
-            }
+            //while (true)
+            //{
+            //    var st = Console.ReadLine();
+            //    Console.WriteLine(st);
+            //    if (st == "vs") fakedata.POSTinsertFakeData_Visible();
+            //    if (st == "stop") JobManager.Stop();
+            //}
         }
 
         private static async Task DoWork()

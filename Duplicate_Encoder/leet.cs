@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
 using Node = Duplicate_Encoder.DataModel.Node;
 using TreeNode = Duplicate_Encoder.DataModel.TreeNode;
@@ -35,6 +36,32 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public string ReverseOnlyLetters(string s)//917. Reverse Only Letters
+            {
+                Stack<char> chars_stack = new Stack<char>();
+
+                foreach (char c in s)
+                {
+                    if (char.IsLetter(c))
+                        chars_stack.Push(c);
+                }
+
+                StringBuilder res = new StringBuilder();
+
+                foreach (char c in s)
+                {
+                    if (char.IsLetter(c))
+                    {
+                        res.Append(chars_stack.Pop());
+                    }
+                    else
+                    {
+                        res.Append(c);
+                    }
+                }
+
+                return res.ToString();
+            }
             public bool IsSameTree(TreeNode p, TreeNode q)//100. Same Tree
             {
                 if (p == null && q == null) return true;
