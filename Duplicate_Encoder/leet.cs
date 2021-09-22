@@ -36,6 +36,109 @@ namespace Duplicate_Encoder
 
         public class LeetCode_Solution
         {
+            public IList<IList<int>> FourSum(int[] nums, int target)//18. 4Sum
+            {
+                HashSet<(int, int)> hs = new HashSet<(int, int)>();
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+
+                }
+
+                return new List<IList<int>>();
+            }
+            public int FindMaxConsecutiveOnes(int[] nums)//485. Max Consecutive Ones
+            {
+                int currentMax = 0;
+                int totalMax = 0;
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    if (nums[i] == 1)
+                    {
+                        currentMax++;
+                        totalMax = Math.Max(totalMax, currentMax);
+                    }
+                    else currentMax = 0;
+                }
+                return totalMax;
+            }
+            public int Tribonacci(int n)//1137. N-th Tribonacci Number
+            {
+                if (n <= 0) return n;
+
+                int t0 = 0, t1 = 1, t2 = 1, t = 1;
+
+                for (int i = 3; i <= n; i++)
+                {
+                    t = t0 + t1 + t2;
+                    t0 = t1;
+                    t1 = t2;
+                    t2 = t;
+                }
+
+                return t;
+            }
+            public IList<int> SpiralOrder(int[][] matrix)//54. Spiral Matrix
+            {
+                List<int> res = new List<int>();
+
+                if (matrix.Length == 0 || matrix[0].Length == 0) return res;
+
+                int m = matrix.Length, n = matrix[0].Length;
+                int ringCount = (Math.Min(m, n) + 1) / 2;
+
+                for (int i = 0; i < ringCount; i++, m -= 2, n -= 2)
+                {
+                    //上標
+                    for (int col = i; col < i + n; col++) res.Add(matrix[i][col]);
+                    //右標
+                    for (int row = i + 1; row < i + m; row++) res.Add(matrix[row][i + n - 1]);
+
+                    if (m == 1 || n == 1) break;
+
+                    //下標
+                    for (int col = i + n - 2; col >= i; col--) res.Add(matrix[i + m - 1][col]);
+                    //左標
+                    for (int row = i + m - 2; row > i; row--) res.Add(matrix[row][i]);
+                }
+
+                return res;
+            }
+            public int MaxTurbulenceSize(int[] arr)//978. Longest Turbulent Subarray
+            {
+                if (arr.Length <= 1) return arr.Length;
+
+                int flippingSign;//< : +1, > : -1, = : 0
+                if (arr[0] < arr[1]) flippingSign = 1;
+                else if (arr[0] > arr[1]) flippingSign = -1;
+                else flippingSign = 0;
+
+                int currentMax = flippingSign == 0 ? 1 : 2;
+                int Max = currentMax;
+
+                for (int i = 1; i < arr.Length - 1; i++)
+                {
+                    if ((arr[i] < arr[i + 1] && flippingSign == -1) || (arr[i] > arr[i + 1] && flippingSign == 1))
+                    {
+                        currentMax++;
+                        Max = Math.Max(Max, currentMax);
+                        flippingSign *= -1;
+                    }
+                    else
+                    {
+                        if (arr[i] < arr[i + 1]) flippingSign = 1;
+                        else if (arr[i] > arr[i + 1]) flippingSign = -1;
+                        else flippingSign = 0;
+
+                        currentMax = flippingSign == 0 ? 1 : 2;
+                        Max = Math.Max(Max, currentMax);
+                    }
+
+                }
+
+                return Max;
+            }
             public string ReverseOnlyLetters(string s)//917. Reverse Only Letters
             {
                 Stack<char> chars_stack = new Stack<char>();

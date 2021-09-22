@@ -124,7 +124,7 @@ namespace Duplicate_Encoder
             //instanceB.selectionSort(unsortedArray);
             var fakedata = new FakeData();
 
-            Console.WriteLine(instanceA.ReverseOnlyLetters("abc-d"));
+            Console.WriteLine(instanceA.ThreeSum(new int[] { -1, 0, 1, 2, -1, -4 }));
             Console.ReadKey();
             //var TH = new polling();
             //TH.Run();
