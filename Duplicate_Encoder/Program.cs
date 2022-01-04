@@ -127,6 +127,7 @@ namespace Duplicate_Encoder
 			string n = Console.ReadLine();
 			Console.WriteLine(instanceA.BitwiseComplement(Convert.ToInt32(n)));
 			Console.ReadKey();
+			//20220104
 			//var TH = new polling();
 			//TH.Run();
 
