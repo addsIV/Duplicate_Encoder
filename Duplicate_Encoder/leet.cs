@@ -14,6 +14,93 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public int FindMinArrowShots(int[][] points)//leet 452
+			{
+				if (points.Length == 0 || points == null) return 0;
+
+				Array.Sort(points, (a, b) => a[1].CompareTo(b[1]));
+
+				int end = points[0][1], count = 1;
+
+				for (int i = 1; i < points.Length; i++)
+				{
+					if (end >= points[i][0]) continue;
+					count++;
+					end = points[i][1];
+				}
+
+				return count;
+			}
+			public int SumRootToLeaf(TreeNode root)//leet 1022
+			{
+				int sum = 0;
+				string one_result = "";
+
+				DFS(root, ref one_result, ref sum);
+
+				return sum;
+			}
+			private void DFS(TreeNode root, ref string one_result, ref int sum)
+			{
+				one_result += root.val;
+				if (root.left != null) DFS(root.left, ref one_result, ref sum);
+
+				if (root.right != null) DFS(root.right, ref one_result, ref sum);
+
+				if (root.left == null && root.right == null)
+				{
+					sum += Convert.ToInt32(one_result, 2);
+				}
+
+				one_result = one_result.Substring(0, one_result.Length - 1);
+			}
+			public IList<IList<string>> Partition(string s)//leet 131_1
+			{
+				List<IList<string>> return_list = new List<IList<string>>();
+				int s_len = s.Length;
+
+				if (s_len == 0) return return_list;
+
+				DFS(s, new List<string>(), return_list);
+				return return_list;
+			}
+			private void DFS(string s, IList<string> oneresult, IList<IList<string>> return_list)//leet 131_2
+			{
+				int s_len = s.Length;
+
+				if (s_len == 0)
+				{
+					return_list.Add(new List<string>(oneresult));
+				}
+				else
+				{
+					for (int i = 0; i <= s_len; i++)
+					{
+						string first_str = s.Substring(0, i);
+						if (isPalindrone(first_str))
+						{
+							oneresult.Add(first_str);
+							string rest_str = s.Substring(i, s_len - i);
+							DFS(rest_str, oneresult, return_list);
+							oneresult.RemoveAt(oneresult.Count - 1);
+						}
+					}
+				}
+			}
+			private bool isPalindrone(string s)//leet 131_3
+			{
+				int left = 0;
+				int right = s.Length - 1;
+
+				while (left < right)
+				{
+					if (s[left] != s[right]) return false;
+					left++;
+					right--;
+				}
+
+				return true;
+			}
 			public int BitwiseComplement(int n)//leet 1009
 			{
 				string binary_n = Convert.ToString(n, 2);

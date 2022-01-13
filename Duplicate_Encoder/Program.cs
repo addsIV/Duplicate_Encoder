@@ -69,13 +69,13 @@ namespace Duplicate_Encoder
 			//bool outputA = instanceA.IsPalindrome(1221);
 			int[] testCase = new int[] { 1, 2, 3 };
 
-			var bst1 = new TreeNode(5);
-			bst1.left = new TreeNode(3);
-			bst1.left.left = new TreeNode(2);
-			bst1.left.right = new TreeNode(4);
-			bst1.right = new TreeNode(6);
-			bst1.right.left = null;
-			bst1.right.right = new TreeNode(7);
+			var bst1 = new TreeNode(1);
+			bst1.left = new TreeNode(0);
+			bst1.left.left = new TreeNode(0);
+			bst1.left.right = new TreeNode(1);
+			bst1.right = new TreeNode(1);
+			bst1.right.left = new TreeNode(0);
+			bst1.right.right = new TreeNode(1);
 
 			var bst2 = new TreeNode(1);
 
@@ -124,8 +124,8 @@ namespace Duplicate_Encoder
 			//instanceB.selectionSort(unsortedArray);
 			var fakedata = new FakeData();
 
-			string n = Console.ReadLine();
-			Console.WriteLine(instanceA.BitwiseComplement(Convert.ToInt32(n)));
+			//string n = Console.ReadLine();
+			Console.WriteLine(instanceA.SumRootToLeaf(bst1));
 			Console.ReadKey();
 			//20220104
 			//var TH = new polling();
