@@ -14,6 +14,31 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public bool WordPattern(string pattern, string s)//290
+			{
+				string[] pattern_split = pattern.ToCharArray().Select(c => c.ToString()).ToArray();
+				string[] s_split = s.Split(' ');
+
+				if (pattern_split.Length != s_split.Length) return false;
+
+				Dictionary<string, string> dict = new Dictionary<string, string>();
+
+				for (int i = 0; i < pattern_split.Length; i++)
+				{
+					if (dict.ContainsKey(pattern_split[i]))
+					{
+						if (dict[pattern_split[i]] != s_split[i]) return false;
+					}
+					else
+					{
+						if (dict.ContainsValue(s_split[i])) return false;
+
+						dict.Add(pattern_split[i], s_split[i]);
+					}
+				}
+
+				return true;
+			}
 			public int FindMinArrowShots(int[][] points)//leet 452
 			{
 				if (points.Length == 0 || points == null) return 0;

@@ -124,8 +124,9 @@ namespace Duplicate_Encoder
 			//instanceB.selectionSort(unsortedArray);
 			var fakedata = new FakeData();
 
-			//string n = Console.ReadLine();
-			Console.WriteLine(instanceA.SumRootToLeaf(bst1));
+			string pattern = Console.ReadLine();
+			string s = Console.ReadLine();
+			Console.WriteLine(instanceA.WordPattern(pattern, s));
 			Console.ReadKey();
 			//20220104
 			//var TH = new polling();
