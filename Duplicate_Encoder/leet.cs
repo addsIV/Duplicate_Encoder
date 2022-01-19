@@ -14,6 +14,18 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public ListNode DetectCycle(ListNode head)//142
+			{
+				var set = new HashSet<ListNode>();
+				for (ListNode i = head; i != null && i.next != null; i = i.next)
+				{
+					if (!set.Contains(i))
+						set.Add(i);
+					else
+						return i;
+				}
+				return null;
+			}
 			public bool WordPattern(string pattern, string s)//290
 			{
 				string[] pattern_split = pattern.ToCharArray().Select(c => c.ToString()).ToArray();
