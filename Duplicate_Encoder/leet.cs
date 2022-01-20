@@ -14,6 +14,46 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public int MinEatingSpeed(int[] piles, int h)//875
+			{
+				long left = 1, right = 0;
+
+				foreach (var p in piles) right = Math.Max(p, right);
+
+				long tempHold_right = right;
+				long timeLimit = h;
+
+				while (left <= right)
+				{
+					long mid = left + (right - left) / 2;
+
+					if (MinEatingSpeed_canEat(piles, mid, timeLimit))
+					{
+						tempHold_right = Math.Min(tempHold_right, mid);
+						right = mid - 1;
+					}
+					else
+					{
+						left = mid + 1;
+					}
+				}
+
+				return (int)tempHold_right;
+			}
+
+			private bool MinEatingSpeed_canEat(int[] piles, long speed, long timeLimit)
+			{
+				long timeElapsed = 0;
+
+				foreach (var p in piles)
+				{
+					timeElapsed += (long)p / speed;
+
+					if (p % speed != 0) timeElapsed++;
+				}
+
+				return timeElapsed <= timeLimit;
+			}
 			public ListNode DetectCycle(ListNode head)//142
 			{
 				var set = new HashSet<ListNode>();
