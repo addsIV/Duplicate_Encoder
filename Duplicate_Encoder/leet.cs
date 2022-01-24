@@ -14,6 +14,24 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public bool DetectCapitalUse(string word)//520
+			{
+				string first_letter = word.Substring(0, 1);
+				string remain_letters = word.Substring(1, word.Length - 1);
+
+				if (first_letter == first_letter.ToUpper())
+				{
+					if (remain_letters == remain_letters.ToUpper()) return true;
+
+					if (remain_letters == remain_letters.ToLower()) return true;
+				}
+				else
+				{
+					if (remain_letters == remain_letters.ToLower()) return true;
+				}
+
+				return false;
+			}
 			public bool WinnerSquareGame(int n)//1510
 			{
 				bool[] dp = new bool[n + 1];
