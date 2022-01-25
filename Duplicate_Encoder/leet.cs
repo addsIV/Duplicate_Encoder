@@ -14,6 +14,37 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public bool ValidMountainArray(int[] arr)//941
+			{
+				if (arr.Length < 3) return false;
+
+				int last_int = arr[0];
+				bool isUP = true;
+
+				for (int i = 1; i < arr.Length; i++)
+				{
+					if (isUP)
+					{
+						if (arr[i] < last_int)
+						{
+							if (i == 1) return false;
+							isUP = false;
+						}
+
+						if (arr[i] == last_int) return false;
+
+						last_int = arr[i];
+					}
+					else
+					{
+						if (arr[i] >= last_int) return false;
+
+						last_int = arr[i];
+					}
+				}
+
+				return !isUP;
+			}
 			public bool DetectCapitalUse(string word)//520
 			{
 				string first_letter = word.Substring(0, 1);
