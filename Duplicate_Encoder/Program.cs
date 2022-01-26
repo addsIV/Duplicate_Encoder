@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ListNode = Duplicate_Encoder.DataModel.ListNode;
@@ -107,6 +108,13 @@ namespace Duplicate_Encoder
 			//}
 			//Console.Read();
 
+			TreeNode t1 = new TreeNode(2);
+			t1.left = new TreeNode(1);
+			t1.right = new TreeNode(4);
+
+			TreeNode t2 = new TreeNode(1);
+			t2.left = new TreeNode(0);
+			t2.right = new TreeNode(3);
 			//SnailSolution.Snail(array);
 			//Console.Write(Result.getMinimumUniqueSum(eee));
 			//Console.Read();
@@ -124,9 +132,14 @@ namespace Duplicate_Encoder
 			//instanceB.selectionSort(unsortedArray);
 			var fakedata = new FakeData();
 
-			string pattern = Console.ReadLine();
-			string s = Console.ReadLine();
-			Console.WriteLine(instanceA.WordPattern(pattern, s));
+			//string pattern = Console.ReadLine();
+			//string s = Console.ReadLine();
+			var temp = instanceA.GetAllElements(t1, t2);
+			foreach (var e in temp)
+			{
+				Console.WriteLine(e);
+			}
+			//Console.WriteLine(instanceA.GetAllElements(t1, t2));
 			Console.ReadKey();
 			//20220104
 			//var TH = new polling();

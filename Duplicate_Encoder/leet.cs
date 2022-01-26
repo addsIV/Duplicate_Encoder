@@ -14,6 +14,29 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public IList<int> GetAllElements(TreeNode root1, TreeNode root2)//1305
+			{
+				List<int> elementArray1 = new List<int>();
+				List<int> elementArray2 = new List<int>();
+
+				if (root1 != null) getAllElement(root1, ref elementArray1);
+				if (root2 != null) getAllElement(root2, ref elementArray2);
+
+				elementArray1 = elementArray1.Concat(elementArray2).ToList();
+
+				elementArray1.Sort();
+
+				return elementArray1;
+			}
+
+			private void getAllElement(TreeNode root, ref List<int> elementArray)
+			{
+				elementArray.Add(root.val);
+
+				if (root.left != null) getAllElement(root.left, ref elementArray);
+
+				if (root.right != null) getAllElement(root.right, ref elementArray);
+			}
 			public bool ValidMountainArray(int[] arr)//941
 			{
 				if (arr.Length < 3) return false;
