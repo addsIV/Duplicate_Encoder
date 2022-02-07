@@ -14,6 +14,46 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public char FindTheDifference(string s, string t)//389
+			{
+				Dictionary<char, int> dict = new Dictionary<char, int>();
+
+				foreach (var i in s)
+				{
+					if (dict.ContainsKey(i))
+					{
+						dict[i]++;
+					}
+					else
+					{
+						dict.Add(i, 1);
+					}
+				}
+
+				foreach (var i in t)
+				{
+					if (dict.ContainsKey(i) && dict[i] > 0) dict[i]--;
+					else return i;
+				}
+
+				return ' ';
+			}
+			public int FindMaximumXOR(int[] nums)//421 TLE
+			{
+				int cur_max = 0;
+
+				for (int i = 0; i < nums.Length; i++)
+				{
+					for (int j = 0; j < nums.Length; j++)
+					{
+						int temp = nums[i] ^ nums[j];
+
+						if (temp > cur_max) cur_max = temp;
+					}
+				}
+
+				return cur_max;
+			}
 			public IList<int> GetAllElements(TreeNode root1, TreeNode root2)//1305
 			{
 				List<int> elementArray1 = new List<int>();

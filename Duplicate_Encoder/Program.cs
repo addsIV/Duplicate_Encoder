@@ -134,11 +134,11 @@ namespace Duplicate_Encoder
 
 			//string pattern = Console.ReadLine();
 			//string s = Console.ReadLine();
-			var temp = instanceA.GetAllElements(t1, t2);
-			foreach (var e in temp)
-			{
-				Console.WriteLine(e);
-			}
+			var temp = instanceA.FindTheDifference("abcd", "abcde");
+			//foreach (var e in temp)
+			//{
+			Console.WriteLine(temp);
+			//}
 			//Console.WriteLine(instanceA.GetAllElements(t1, t2));
 			Console.ReadKey();
 			//20220104
