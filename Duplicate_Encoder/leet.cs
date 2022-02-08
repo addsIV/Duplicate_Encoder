@@ -14,6 +14,17 @@ namespace Duplicate_Encoder
 
 		public class LeetCode_Solution
 		{
+			public int AddDigits(int num)//258
+			{
+				if (num < 10) return num;
+				int ret = 0;
+				while (num > 0)
+				{
+					ret += num % 10;
+					num /= 10;
+				}
+				return AddDigits(ret);
+			}
 			public char FindTheDifference(string s, string t)//389
 			{
 				Dictionary<char, int> dict = new Dictionary<char, int>();
