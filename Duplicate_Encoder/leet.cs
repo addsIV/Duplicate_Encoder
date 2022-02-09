@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,36 @@ namespace Duplicate_Encoder
 {
 	internal class leet
 	{
+		public int FindPairs(int[] nums, int k)//532
+		{
+			if (k < 0) return 0;
+
+			var hash = new Hashtable();
+			int result = 0;
+
+			foreach (var item in nums)
+			{
+				if (!hash.ContainsKey(item))
+				{
+					hash.Add(item, 1);
+				}
+				else
+				{
+					hash[item] = (int)hash[item] + 1;
+				}
+			}
+
+			foreach (var key in hash.Keys)
+			{
+				if (k == 0)
+				{
+					if ((int)hash[key] > 1) result++;
+				}
+				else if (hash.ContainsKey((int)key + k)) result++;
+			}
+
+			return result;
+		}
 		public const int mod = (int)1e9 + 7;
 
 		public class LeetCode_Solution
