@@ -11,6 +11,57 @@ namespace Duplicate_Encoder
 {
 	internal class leet
 	{
+		public IList<IList<int>> CombinationSum(int[] candidates, int target)//39
+		{
+			List<IList<int>> result = new List<IList<int>>();
+			List<int> combination = new List<int>();
+			Array.Sort(candidates);
+			CombinationSum(result, candidates, combination, target, 0);
+			return result;
+		}
+
+		private void CombinationSum(IList<IList<int>> result, int[] candidates, IList<int> combination, int target, int start)
+		{
+			if (target == 0)
+			{
+				result.Add(new List<int>(combination));
+				return;
+			}
+
+			for (int i = start; i != candidates.Length && target >= candidates[i]; ++i)
+			{
+				combination.Add(candidates[i]);
+				CombinationSum(result, candidates, combination, target - candidates[i], i);
+				combination.Remove(combination.Last());
+			}
+		}
+		public int SubarraySum(int[] nums, int k)//560
+		{
+
+			/*
+				  Sum[i,j] = Sum[0,j] - Sum[0,i-1]  = k
+			   => Sum[0,i-1] = Sum[0,j] - Sum[i,j]
+			   => preSum.Key = sum - k
+			*/
+			Dictionary<int, int> preSum = new Dictionary<int, int>();
+			preSum.Add(0, 1);
+			int count = 0, sum = 0;
+
+			for (int i = 0; i < nums.Length; i++)
+			{
+				sum += nums[i];
+
+				if (preSum.ContainsKey(sum - k))
+					count += preSum[sum - k];
+
+				if (preSum.ContainsKey(sum))
+					preSum[sum]++;
+				else
+					preSum.Add(sum, 1);
+			}
+
+			return count;
+		}
 		public int FindPairs(int[] nums, int k)//532
 		{
 			if (k < 0) return 0;
