@@ -13,20 +13,29 @@ namespace Duplicate_Encoder
 	{
 		public string ReverseString(string str)
 		{
-			int count = 0;
-			char[] c_array = str.ToCharArray();
-			char[] ouput_array = new char[c_array.Length];
-			string output = "";
-
-			for (int i = 0; i < c_array.Length / 2; i++)
+			//遞迴寫法
+			if (str.Length <= 1)
 			{
-				char temp = c_array[i];
-
-				c_array[i] = c_array[c_array.Length - 1 - i];
-
-				c_array[c_array.Length - 1 - i] = temp;
+				return str;
+			}
+			else
+			{
+				return str[str.Length - 1] + ReverseString(str.Substring(0, str.Length - 1));
 			}
 
+			//迴圈寫法
+			//char[] c_array = str.ToCharArray();
+
+			//for (int i = 0; i < c_array.Length / 2; i++)
+			//{
+			//	char temp = c_array[i];
+
+			//	c_array[i] = c_array[c_array.Length - 1 - i];
+
+			//	c_array[c_array.Length - 1 - i] = temp;
+			//}
+
+			//stack寫法
 			//Stack sta = new Stack();
 
 			//for (int i = 0; i < c_array.Length; i++)
@@ -39,7 +48,7 @@ namespace Duplicate_Encoder
 			//	output += sta.Pop().ToString();
 			//}
 
-			return new string(c_array);
+			return str;
 		}
 
 		public IList<IList<int>> CombinationSum(int[] candidates, int target)//39
