@@ -64,9 +64,9 @@ namespace Duplicate_Encoder
 			//{
 			//    Console.Write(item + " ");
 			//}
-
 			leet.LeetCode_Solution instanceA = new leet.LeetCode_Solution();
 			HISKIO_Solution instanceB = new HISKIO_Solution();
+			leet instanceC = new leet();
 			//bool outputA = instanceA.IsPalindrome(1221);
 			int[] testCase = new int[] { 1, 2, 3 };
 
@@ -134,10 +134,11 @@ namespace Duplicate_Encoder
 
 			//string pattern = Console.ReadLine();
 			//string s = Console.ReadLine();
-			var temp = instanceA.FindTheDifference("abcd", "abcde");
+			//var temp = instanceA.FindTheDifference("abcd", "abcde");
+			var temp2 = instanceC.ReverseString("abcd");
 			//foreach (var e in temp)
 			//{
-			Console.WriteLine(temp);
+			Console.WriteLine(temp2);
 			//}
 			//Console.WriteLine(instanceA.GetAllElements(t1, t2));
 			Console.ReadKey();

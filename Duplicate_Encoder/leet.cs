@@ -11,6 +11,37 @@ namespace Duplicate_Encoder
 {
 	internal class leet
 	{
+		public string ReverseString(string str)
+		{
+			int count = 0;
+			char[] c_array = str.ToCharArray();
+			char[] ouput_array = new char[c_array.Length];
+			string output = "";
+
+			for (int i = 0; i < c_array.Length / 2; i++)
+			{
+				char temp = c_array[i];
+
+				c_array[i] = c_array[c_array.Length - 1 - i];
+
+				c_array[c_array.Length - 1 - i] = temp;
+			}
+
+			//Stack sta = new Stack();
+
+			//for (int i = 0; i < c_array.Length; i++)
+			//{
+			//	sta.Push(c_array[i]);
+			//}
+
+			//for (int i = 0; i < ouput_array.Length; i++)
+			//{
+			//	output += sta.Pop().ToString();
+			//}
+
+			return new string(c_array);
+		}
+
 		public IList<IList<int>> CombinationSum(int[] candidates, int target)//39
 		{
 			List<IList<int>> result = new List<IList<int>>();
@@ -34,6 +65,13 @@ namespace Duplicate_Encoder
 				CombinationSum(result, candidates, combination, target - candidates[i], i);
 				combination.Remove(combination.Last());
 			}
+		}
+
+		public List<int> n_queens(int n, List<int> state)
+		{
+			if (state.Count == n) state.Add(n);
+
+			return state;
 		}
 		public int SubarraySum(int[] nums, int k)//560
 		{
