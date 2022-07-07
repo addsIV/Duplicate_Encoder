@@ -135,10 +135,11 @@ namespace Duplicate_Encoder
 			//string pattern = Console.ReadLine();
 			//string s = Console.ReadLine();
 			//var temp = instanceA.FindTheDifference("abcd", "abcde");
-			var temp2 = instanceC.ReverseString("abcd");
+			//var temp2 = instanceC.ReverseString("abcd");
+			var temp3 = instanceC.InterLeaveString("aabcc", "dbbca", "aadbbbaccc");
 			//foreach (var e in temp)
 			//{
-			Console.WriteLine(temp2);
+			Console.WriteLine(temp3);
 			//}
 			//Console.WriteLine(instanceA.GetAllElements(t1, t2));
 			Console.ReadKey();
